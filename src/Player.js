@@ -1,8 +1,9 @@
-var Inventory = require('./Inventory');
+const Inventory = require('./Inventory');
+const Logger = require('./Logger');
 
 /** class containing the properties of the Player */
 class Player {
-  constructor () {
+  constructor (startRoom) {
     /**
      * @type {Number}
      */
@@ -12,6 +13,8 @@ class Player {
      * @type {Inventory}
      */
     this.inventory = new Inventory();
+
+    this.currentRoom = startRoom;
   }
 
   /**
@@ -22,11 +25,20 @@ class Player {
   }
 
   /**
-   * @param {*} move Action of moving the user from one connected node to aonther
+   * @param {String} direction - move Action of moving the user from one connected node to aonther
    */
-  move () {
+  move (direction) {
+    // Find the connected room in the specified direction
+    let destinationRoom = this.currentRoom.connectedRooms[direction];
+
+    if (destinationRoom) {
+      Logger.log('You are moving in the direction of: ' + direction);
+      // Set the current room to the connected room
+      this.currentRoom = destinationRoom;
+    } else {
+      Logger.log('There is no way to move ' + direction + ' right now.');
+    }
   }
 }
-
 module.exports = Player;
 
