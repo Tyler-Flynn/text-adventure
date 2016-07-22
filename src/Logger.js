@@ -11,6 +11,9 @@ class Logger {
       },
       DIRECTION: function (s) {
         return chalk.green(s);
+      },
+      ENEMY: function (s) {
+        return chalk.red(s);
       }
     };
   }

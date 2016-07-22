@@ -1,5 +1,5 @@
 const Logger = require('./Logger');
-
+const Inventory = require('./Inventory');
 
 /** Class giving the base properties of a room. */
 class Room {
@@ -7,11 +7,15 @@ class Room {
 	 * @param {string} description - A description of an object
 	 * @param {Inventory} inventory - The interactive contents of a room
 	 */
-  constructor (name, description, inventory) {
+  constructor (name, description) {
     this.name = name;
     this.description = description;
-    this.inventory = inventory;
+    this.inventory = new Inventory();
     this.connectedRooms = {};
+  }
+
+  addItem (item) {
+    this.inventory.addItem(item);
   }
 
   connect (keyword, otherRoom) {
@@ -36,8 +40,12 @@ class Room {
 
   printDescription () {
     Logger.log(this.name);
-    Logger.log(this.description);
-    Logger.log('You can go: ' + Object.keys(this.connectedRooms));
+    Logger.log('\t' + this.description);
+    Logger.log('\tYou can go: ' + Object.keys(this.connectedRooms));
+  }
+
+  doExamine () {
+    return this.inventory.doExamine();
   }
 }
 
