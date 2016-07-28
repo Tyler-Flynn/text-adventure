@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 
 const Logger = require('./Logger');
-const Inventory = require ('./Inventory');
+const Inventory = require('./Inventory');
 
 
 /** Class representing the base properties of items found in the game*/
@@ -66,7 +66,7 @@ class Item {
       console.log('');
       // Run the game logic
       if (answers.userChoice.action === 'TAKE') {
-        // TODO: add item to player inventory
+        //
       } else if (answers.userChoice.action === 'LEAVE') {
         return;
       } else {

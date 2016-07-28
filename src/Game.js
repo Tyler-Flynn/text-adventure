@@ -12,7 +12,7 @@ class Game {
   setupRooms () {
     var foyer = new Room(
       'Foyer',
-      'You find yourself in the foyer of an old manor, the interior is covered in cobwebs and dust, the building seems to have been abandonded years ago. In the foyer there is a {ITEM:coatrack} and a {ITEM:cupboard} as well as two connecting doors, one to the left side and one to the right side as well as a Staircase that leads upstairs though it does not seem to be in the best shape anymore.'
+      'file:descriptions/foyer.md'
     );
 
     var livingRoom = new Room('Living room', 'A dusty and old yet lavish livig space seemingly untouched for decades sets before you. There is furniture dotted about, a couch a {ITEM:painting} above the fireplace, as well as a small {ITEM:chest} beside the fireplace. On the other side of the fireplace you see an old iron supported door, though there is no indication of as to where the door leads.');
