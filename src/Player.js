@@ -1,32 +1,9 @@
-const Inventory = require('./Inventory');
+// const Inventory = require('./Inventory');
 const Logger = require('./Logger');
+const Entity = require('./Entity');
 
 /** class containing the properties of the Player */
-class Player {
-  constructor (startRoom) {
-    /**
-     * @type {Number}
-     */
-    this.health = 100;
-    /**
-     * The contents of the user's backpack
-     * @type {Inventory}
-     */
-    this.inventory = new Inventory();
-
-    this.currentRoom = startRoom;
-  }
-
-  /**
-   * @param {number} health - The amount of health them player has left
-   */
-  setHealth (health) {
-    this.health = health;
-  }
-
-  /**
-   * @param {String} direction - move Action of moving the user from one connected node to aonther
-   */
+class Player extends Entity {
   move (direction) {
     // Find the connected room in the specified direction
     let destinationRoom = this.currentRoom.connectedRooms[direction];
@@ -42,3 +19,4 @@ class Player {
 }
 module.exports = Player;
 
+// LET ME COMMIT

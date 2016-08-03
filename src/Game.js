@@ -1,12 +1,13 @@
-const inquirer = require('inquirer');
+const inquirer = require('inquirer'); // TODO FIX INVENTORY RETURN GLITCH
 const Room = require('./Room');
 const Player = require('./Player');
 const Item = require('./Item');
-
+const Enemy = require('./Enemy');
 class Game {
   constructor () {
     this.setupRooms();
     this.setupPlayer();
+    this.setupEnemy();
   }
 
   setupRooms () {
@@ -64,6 +65,14 @@ class Game {
     upstairs.addItem(new Item('LETTER', 'A letter written so long ago you  cannnot even make out the adressed year from how faded the ink is on the page. Though it gives you a good idea as to just how long ago it has been since someone lived here or even explored.', 0, 0, 1));
   }
 
+  setupEnemy () {
+    var gollum = new Enemy('Gollum', 'A small hunched over creature, it has bulbous eyes and rotted teeth combined with the thousand yard stare, this little thing is creepy.', this.foyer);
+    gollum.inventory.addItem(new Item('SILVER KEY', 'A key once polished silver, now it is just old and tarnished.', 1, 1, 1))
+    var boss = new Enemy('Demon', 'A hulking tower of crimson flesh and bone stands before you, it seems to come to life from the shadows as moments before there was nothing there at all, it has eyes that burn deep into your soul, send chills down your spine. It permeate the perverted power of this forsaken manor, it is the emobdiment of pure evil.', this.altarChamber)
+    boss.inventory.addItem(new Item('GOLDEN KEY', 'A key forged of the purest gold. It was dropped by the demon. I wonder what it goes to?', 1, 1, 1))
+    var wraith = new Enemy('Wraith', 'A ghastly aparition seemingly produced of shadows, the sight of it sends chills down your spine.', this.cell3)
+      wraith.inventory.addItem
+  }
 
   setupPlayer () {
     this.player = new Player(this.startingRoom);
@@ -149,7 +158,7 @@ class Game {
         });
       } else if (answers.userChoice.action === 'CHECK INVENTORY') {
         return this.player.inventory.doExamine().then(() => {
-          return 10000;
+          return 200;
         });
       } else {
         console.log('unhandled action', answers.userChoice.action);
@@ -163,5 +172,7 @@ class Game {
   }
 }
 
+
+// LET ME COMMIT
 
 module.exports = Game;
