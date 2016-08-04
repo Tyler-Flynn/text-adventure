@@ -19,4 +19,3 @@ class Player extends Entity {
 }
 module.exports = Player;
 
-// LET ME COMMIT

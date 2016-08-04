@@ -1,5 +1,6 @@
 // const Inventory = require('./Inventory');
 const Entity = require('./Entity');
+const Logger = require('./Logger');
 
 
 class Enemy extends Entity {
@@ -9,8 +10,14 @@ class Enemy extends Entity {
   sethealth (health) {
     this.health = health;
   }
+  setCurrentRoom (currentRoom) {
+    this.room = currentRoom;
+  }
+  printDescription () {
+    Logger.log(this.name);
+    Logger.log('\t' + this.description);
+  }
 
 }
 
 module.exports = Enemy;
-// LET ME COMMIT

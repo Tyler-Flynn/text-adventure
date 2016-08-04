@@ -50,5 +50,3 @@ class Room {
 }
 
 module.exports = Room;
-
-// LET ME COMMIT

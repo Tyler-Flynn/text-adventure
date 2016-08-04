@@ -67,11 +67,11 @@ class Game {
 
   setupEnemy () {
     var gollum = new Enemy('Gollum', 'A small hunched over creature, it has bulbous eyes and rotted teeth combined with the thousand yard stare, this little thing is creepy.', this.foyer);
-    gollum.inventory.addItem(new Item('SILVER KEY', 'A key once polished silver, now it is just old and tarnished.', 1, 1, 1))
-    var boss = new Enemy('Demon', 'A hulking tower of crimson flesh and bone stands before you, it seems to come to life from the shadows as moments before there was nothing there at all, it has eyes that burn deep into your soul, send chills down your spine. It permeate the perverted power of this forsaken manor, it is the emobdiment of pure evil.', this.altarChamber)
-    boss.inventory.addItem(new Item('GOLDEN KEY', 'A key forged of the purest gold. It was dropped by the demon. I wonder what it goes to?', 1, 1, 1))
+    gollum.inventory.addItem(new Item('SILVER KEY', 'A key once polished silver, now it is just old and tarnished.', 1, 1, 1));
+    var boss = new Enemy('Demon', 'A hulking tower of crimson flesh and bone stands before you, it seems to come to life from the shadows as moments before there was nothing there at all, it has eyes that burn deep into your soul, send chills down your spine. It permeate the perverted power of this forsaken manor, it is the emobdiment of pure evil.', this.altarChamber);
+    boss.inventory.addItem(new Item('GOLDEN KEY', 'A key forged of the purest gold. It was dropped by the demon. I wonder what it goes to?', 1, 1, 1));
     var wraith = new Enemy('Wraith', 'A ghastly aparition seemingly produced of shadows, the sight of it sends chills down your spine.', this.cell3)
-      wraith.inventory.addItem
+    wraith.inventory.addItem(new Item('DUSTY KEY'))
   }
 
   setupPlayer () {
@@ -173,6 +173,5 @@ class Game {
 }
 
 
-// LET ME COMMIT
 
 module.exports = Game;

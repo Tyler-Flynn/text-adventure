@@ -14,4 +14,3 @@ class Entity {
   }
 }
 module.exports = Entity;
-// LET ME COMMIT

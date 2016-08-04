@@ -1,9 +1,6 @@
 const inquirer = require('inquirer');
-// LET ME COMMIT
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');
-// LET ME COMMIT
-
 
 /** Class representing the base properties of items found in the game*/
 class Item {
