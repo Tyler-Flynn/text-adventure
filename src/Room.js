@@ -1,6 +1,6 @@
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');
-
+const Enemy = require('./Enemy');
 /** Class giving the base properties of a room. */
 class Room {
 	/**
@@ -12,10 +12,14 @@ class Room {
     this.description = description;
     this.inventory = new Inventory();
     this.connectedRooms = {};
+    this.enemy = new Enemy(description);
   }
 
   addItem (item) {
     this.inventory.addItem(item);
+  }
+  addEnemy (enemy) {
+    this.currentRoom.addEnemy(enemy);
   }
 
   connect (keyword, otherRoom) {
@@ -42,6 +46,10 @@ class Room {
     Logger.log(this.name);
     Logger.log('\t' + this.description);
     Logger.log('\tYou can go: ' + Object.keys(this.connectedRooms));
+
+     debugger;
+    Logger.log('\t' + this.enemy)
+
   }
 
   doExamine () {

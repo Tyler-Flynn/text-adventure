@@ -44,6 +44,3 @@ class Inventory {
 }
 
 module.exports = Inventory;
-
-// LET ME COMMIT
-// 

@@ -1,21 +1,21 @@
 // const Inventory = require('./Inventory');
 const Entity = require('./Entity');
+// const Inquirer = require('./Inquirer');
+// const Room = require('./Room');
 const Logger = require('./Logger');
 
-
 class Enemy extends Entity {
-  Enemy (name, description, currentRoom) {
+  constructor (name, description, currentRoom) {
+    super(currentRoom);
     this.health = 150;
+    this.description = description;
+    this.name = name;
   }
-  sethealth (health) {
+  setHealth (health) {
     this.health = health;
   }
-  setCurrentRoom (currentRoom) {
+  setRoom (currentRoom) {
     this.room = currentRoom;
-  }
-  printDescription () {
-    Logger.log(this.name);
-    Logger.log('\t' + this.description);
   }
 
 }

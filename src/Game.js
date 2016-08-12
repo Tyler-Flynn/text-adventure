@@ -11,7 +11,7 @@ class Game {
   }
 
   setupRooms () {
-    var foyer = new Room(
+    this.foyer = new Room(
       'Foyer',
       'file:descriptions/foyer.md'
     );
@@ -27,12 +27,12 @@ class Game {
     var cell3 = new Room(' Cell on the right', 'As you approach the cell you notice something in the shadows o the right hand corner,something moving and as such you take ease opening the metal cage door, the cell floor is damp and inside and you take a cautious step, at the sound of your foot padding the floor the small, pallor, and hunched {ENEMY:creature} snaps around, a certain manical glint in its eyes as it stares back at you...')
     var altarChamber = new Room('Altar chamber', 'You approach the massive iron doors at the end of the hall, as you come to a stop before it the torches on either side of the anciet door ignite casting shadows across the walls and floors around you. You put the key into the lock forcing it to twist, the dust in locks causing a grind as the decades now unopened chamber is finally unsealed. You pull the door open taking a step inside, your eyes take in the sights, the room is seeming a place out of time as everything seems as new as the day is was likely brought there. A large altar lays in the middle of the room, around it is a group of skeletal remains as garbed in the same crimson robes. Another skeleton lays upon the altar top and as you approach it the shadows behind the altar seem to grow seemingly into the physical form. In moments a towering grotesque figure is before you, red skin horns and more greet you. This is it, the spirit that has come over this manor, before you can consider running back through the exit the door slams shut the anicent locking grinding into its sealed position. You are trapped inside, there is only one chance now to escape, you must slay the demon!');
     // Foyer connection points
-    foyer.connect('WEST', livingRoom);
-    foyer.connect('EAST', hallway);
-    foyer.connect('NORTH', upstairs);
+    this.foyer.connect('WEST', livingRoom);
+    this.foyer.connect('EAST', hallway);
+    this.foyer.connect('NORTH', upstairs);
     // Livingroom connection point
     livingRoom.connect('NORTH', basement);
-    this.startingRoom = foyer;
+    this.startingRoom = this.foyer;
    // Basment connect point
     basement.connect('WEST', cell1);
     basement.connect('EAST', cell3);
@@ -40,13 +40,13 @@ class Game {
     // hallway connection points
     hallway.connect('EAST', hallwayDoorRight);
     hallway.connect('WEST', hallwayDoorLeft);
-    hallway.connect('SOUTH', foyer);
+    hallway.connect('SOUTH', this.foyer);
     // Foyer Inventory
     var cupboard = new Item('CUPBOARD', 'A cobweb coated oak cupboard. Maybe there is something inside?', 3, 20, 1);
     cupboard.addInventory()
     cupboard.inventory.addItem(new Item('DAGGER', 'An old dagger, good for stabbing things.', 5, 3, 25));
-    foyer.addItem(new Item('COATRACK', 'A dusty old coat rack mdade of wood and brass. Has some heft to it.', 5, 25, 5));
-    foyer.addItem(cupboard)
+    this.foyer.addItem(new Item('COATRACK', 'A dusty old coat rack mdade of wood and brass. Has some heft to it.', 5, 25, 5));
+    this.foyer.addItem(cupboard)
   // Living room inventory
     var chest = new Item('CHEST', 'A faded old chest with a leather closing strap.', 5, 15, 7)
     chest.addInventory()
@@ -66,6 +66,7 @@ class Game {
   }
 
   setupEnemy () {
+  //  this.enemy = new Enemy(this.currentRoom)
     var gollum = new Enemy('Gollum', 'A small hunched over creature, it has bulbous eyes and rotted teeth combined with the thousand yard stare, this little thing is creepy.', this.foyer);
     gollum.inventory.addItem(new Item('SILVER KEY', 'A key once polished silver, now it is just old and tarnished.', 1, 1, 1));
     var boss = new Enemy('Demon', 'A hulking tower of crimson flesh and bone stands before you, it seems to come to life from the shadows as moments before there was nothing there at all, it has eyes that burn deep into your soul, send chills down your spine. It permeate the perverted power of this forsaken manor, it is the emobdiment of pure evil.', this.altarChamber);
@@ -73,6 +74,7 @@ class Game {
     var wraith = new Enemy('Wraith', 'A ghastly aparition seemingly produced of shadows, the sight of it sends chills down your spine.', this.cell3)
     wraith.inventory.addItem(new Item('DUSTY KEY'))
   }
+
 
   setupPlayer () {
     this.player = new Player(this.startingRoom);
@@ -151,7 +153,7 @@ class Game {
         process.exit();
       } else if (answers.userChoice.action === 'MOVE') {
         this.player.move(answers.userChoice.direction);
-        return 1000;
+        return 750;
       } else if (answers.userChoice.action === 'EXAMINE') {
         return this.player.currentRoom.doExamine().then(() => {
           return 500;
@@ -171,7 +173,6 @@ class Game {
     });
   }
 }
-
 
 
 module.exports = Game;
