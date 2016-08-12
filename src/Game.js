@@ -78,6 +78,8 @@ class Game {
     var wraith = new Enemy('Wraith', 'A ghastly aparition seemingly produced of shadows, the sight of it sends chills down your spine.', this.cell3)
     wraith.inventory.addItem(new Item('DUSTY KEY'))
     this.entityManager.addEntity(wraith);
+    console.log(this.entityManager.entitiesInRoom(this.foyer))
+    process.exit();
   }
 
 
