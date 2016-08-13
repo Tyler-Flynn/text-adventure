@@ -44,16 +44,24 @@ class Room {
   }
 
   printDescription () {
+    // Print this rooom information
     Logger.log(this.name);
     Logger.log('\t' + this.description);
-    Logger.log('\tYou can go: ' + Object.keys(this.connectedRooms));
-
-    let entities = this.game.entityManager.entitiesInRoom(this);
-    for (let i = 0; i < entities.length; i++) {
-      if (entities[i].description) {
-        Logger.log('\n' + entities[i].description);
+    // Print Entities in Room
+    let entities = this.game.entityManager.entitiesInRoom(this)
+    if (entities.length === 0) {
+      Logger.log('You\'re alone in the room.')
+    } else {
+      Logger.log('You are not alone in the room...')
+      for (let i = 0; i < entities.length; i++) {
+        Logger.log('\t' + entities[i].name);
+        if (entities[i].description) {
+          Logger.log('\t\t' + entities[i].description);
+        }
       }
     }
+    // Displays the directions you can access from the curren room
+    Logger.log('You can go: ' + Object.keys(this.connectedRooms));
   }
 
   doExamine () {
