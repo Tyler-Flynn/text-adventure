@@ -31,6 +31,11 @@ class Inventory {
       });
     }
 
+    if (choices.length < 1) {
+      console.log('You have nothing in your inventory.')
+      return Promise.resolve();
+    }
+
     // Return the new promise
     return inquirer.prompt([{
       type: 'list',

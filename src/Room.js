@@ -7,7 +7,8 @@ class Room {
 	 * @param {string} description - A description of an object
 	 * @param {Inventory} inventory - The interactive contents of a room
 	 */
-  constructor (name, description) {
+  constructor (game, name, description) {
+    this.game = game;
     this.name = name;
     this.description = description;
     this.inventory = new Inventory();
@@ -47,9 +48,12 @@ class Room {
     Logger.log('\t' + this.description);
     Logger.log('\tYou can go: ' + Object.keys(this.connectedRooms));
 
-     debugger;
-    Logger.log('\t' + this.enemy)
-
+    let entities = this.game.entityManager.entitiesInRoom(this);
+    for (let i = 0; i < entities.length; i++) {
+      if (entities[i].description) {
+        Logger.log('\n' + entities[i].description);
+      }
+    }
   }
 
   doExamine () {

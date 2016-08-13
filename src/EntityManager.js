@@ -1,16 +1,18 @@
+const Entity = require('./Entity');
+
 class EntityManager {
   constructor () {
-    this.entities = []
+    this.entities = [];
   }
   addEntity (entity) {
     this.entities.push(entity);
   }
   entitiesInRoom (room) {
-    var result = []
-    for(var i =0;<entities.length; i++){
-      if(entities[i].currentRoom == Room){
-        if(entities[i] instead of class){
-          result.push(entities[i]);
+    var result = [];
+    for (var i = 0; i < this.entities.length; i++) {
+      if (this.entities[i].currentRoom === room) {
+        if (this.entities[i] instanceof Entity) {
+          result.push(this.entities[i]);
         }
       }
     }
