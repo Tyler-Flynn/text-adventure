@@ -34,9 +34,9 @@ class Game {
     this.cell1 = new Room(this, 'First cell on the left', 'You approach the first cell on the left side of the tunnnel you carefully reach your hand out to the cold iron door of the small room and push it open stepping inside you find yourself is a room of some form of alcehmy you could asusme so many unsepakable and unkown things all in glass jars from collected plants to the organs of animals. You can only asusme what horrible things must go on down here and the errie lighting your lantern gives it does not help.');
     // this.cell2 = new Room(this, 'This is the second cell on the left', 'Unnerved by the cell before this one you quickly force the door open, weapon extended inside you find merely another guresome scene, a chained skeleton the ones so ancient they are little more than dust. But that is all that occupies this room, you should probably {DIRECTION:LEAVE}. ')
 
-    this.cell3 = new Room(this, ' Cell on the right', 'As you approach the cell you notice something in the shadows o the right hand corner,something moving and as such you take ease opening the metal cage door, the cell floor is damp and inside and you take a cautious step, at the sound of your foot padding the floor the small, pallor, and hunched {ENEMY:creature} snaps around, a certain manical glint in its eyes as it stares back at you...')
+    this.cell3 = new Room(this, ' Cell on the right', 'As you approach the cell you notice something in the shadows o the right hand corner,something moving and as such you take ease opening the metal cage door, the cell floor is damp and inside and you take a cautious step, taking in the darkened and otherwise seemingly empty chamber, at least you hoped it was empty...')
 
-    this.altarChamber = new Room(this, 'Altar chamber', 'You approach the massive iron doors at the end of the hall, as you come to a stop before it the torches on either side of the anciet door ignite casting shadows across the walls and floors around you. You put the key into the lock forcing it to twist, the dust in locks causing a grind as the decades now unopened chamber is finally unsealed. You pull the door open taking a step inside, your eyes take in the sights, the room is seeming a place out of time as everything seems as new as the day is was likely brought there. A large altar lays in the middle of the room, around it is a group of skeletal remains as garbed in the same crimson robes. Another skeleton lays upon the altar top and as you approach it the shadows behind the altar seem to grow seemingly into the physical form. In moments a towering grotesque figure is before you, red skin horns and more greet you. This is it, the spirit that has come over this manor, before you can consider running back through the exit the door slams shut the anicent locking grinding into its sealed position. You are trapped inside, there is only one chance now to escape, you must slay the demon!');
+    this.altarChamber = new Room(this, 'Altar chamber', 'You approach the massive iron doors at the end of the hall, as you come to a stop before it the torches on either side of the anciet door ignite casting shadows across the walls and floors around you. You put the key into the lock forcing it to twist, the dust in locks causing a grind as the decades now unopened chamber is finally unsealed. You pull the door open taking a step inside, your eyes take in the sights, the room is seeming a place out of time as everything seems as new as the day is was likely brought there. A large altar lays in the middle of the room, around it is a group of skeletal remains as garbed in the same crimson robes. Another skeleton lays upon the altar top and as you approach it the shadows behind the altar seem to grow...');
     // Foyer connection points
     this.foyer.connect('WEST', this.livingRoom);
     this.foyer.connect('EAST', this.hallway);
@@ -78,15 +78,15 @@ class Game {
 
   setupEnemy () {
     this.enemy = new Enemy(this.currentRoom)
-    var gollum = new Enemy('Gollum', 'A small hunched over creature, it has bulbous eyes and rotted teeth combined with the thousand yard stare, this little thing is creepy.', this.foyer);
+    var gollum = new Enemy('Gollum', 'A small hunched over creature, it has bulbous eyes and rotted teeth combined with the thousand yard stare, this little thing is creepy.', this.cell3);
     gollum.inventory.addItem(new Item('SILVER KEY', 'A key once polished silver, now it is just old and tarnished.', 1, 1, 1));
     this.entityManager.addEntity(gollum);
 
-    var boss = new Enemy('Demon', 'A hulking tower of crimson flesh and bone stands before you, it seems to come to life from the shadows as moments before there was nothing there at all, it has eyes that burn deep into your soul, send chills down your spine. It permeate the perverted power of this forsaken manor, it is the emobdiment of pure evil.', this.altarChamber);
+    var boss = new Enemy('Demon', 'A hulking tower of crimson flesh and bone stands before you, it seems to come to life from the shadows as moments before there was nothing there at all, it has eyes that burn deep into your soul, send chills down your spine. It permeates the perverted power of this forsaken manor, it is the emobdiment of pure evil.', this.altarChamber);
     boss.inventory.addItem(new Item('GOLDEN KEY', 'A key forged of the purest gold. It was dropped by the demon. I wonder what it goes to?', 1, 1, 1));
     this.entityManager.addEntity(boss);
 
-    var wraith = new Enemy('Wraith', 'A ghastly aparition seemingly produced of shadows, the sight of it sends chills down your spine.', this.cell3)
+    var wraith = new Enemy('Wraith', 'A ghastly aparition seemingly produced of shadows, a thing of  the sight of it sends chills down your spine.', this.foyer)
     wraith.inventory.addItem(new Item('DUSTY KEY'))
     this.entityManager.addEntity(wraith);
   }
@@ -108,13 +108,8 @@ class Game {
           action: 'EXAMINE'
         }
       },
-      {
-        name: 'Quit Game',
-        value: {
-          action: 'QUIT'
-        }
-      },
-      // Movement
+
+
       {
         name: 'Go North',
         value: {
@@ -148,7 +143,15 @@ class Game {
         value: {
           action: 'CHECK INVENTORY'
         }
+      },
+      {
+        name: 'Quit Game',
+        value: {
+          action: 'QUIT'
+        }
+
       }
+
     ];
 
     // Current room description
@@ -165,9 +168,8 @@ class Game {
       // console.log(answers);
       console.log('');
       // Run the game logic
-      if (answers.userChoice.action === 'QUIT') {
-        process.exit();
-      } else if (answers.userChoice.action === 'MOVE') {
+
+      if (answers.userChoice.action === 'MOVE') {
         this.player.move(answers.userChoice.direction);
         return 750;
       } else if (answers.userChoice.action === 'EXAMINE') {
@@ -178,6 +180,8 @@ class Game {
         return this.player.inventory.doExamine().then(() => {
           return 500;
         });
+      } if (answers.userChoice.action === 'QUIT') {
+        process.exit();
       } else {
         console.log('unhandled action', answers.userChoice.action);
       }
