@@ -3,7 +3,7 @@ const path = require('path');
 
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');
-const Enemy = require('./Enemy');
+//const Enemy = require('./Enemy');
 
 
 /** Class giving the base properties of a room. */
@@ -29,7 +29,7 @@ class Room {
       let descPath = description.substring(5);
       // Make it relative to project/src
       descPath = path.resolve(__dirname, descPath);
-
+      // Actually load the file contents
       let contents = fs.readFileSync(descPath, 'utf8');
       this.description = contents;
     } else {
