@@ -1,6 +1,11 @@
+const fs = require('fs');
+const path = require('path');
+
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');
 const Enemy = require('./Enemy');
+
+
 /** Class giving the base properties of a room. */
 class Room {
 	/**
@@ -10,10 +15,26 @@ class Room {
   constructor (game, name, description) {
     this.game = game;
     this.name = name;
-    this.description = description;
     this.inventory = new Inventory();
     this.connectedRooms = {};
-    this.enemy = new Enemy(description);
+
+    this.setDescription(description);
+
+    // this.enemy = new Enemy(description);
+  }
+
+  setDescription (description) {
+    if (description.startsWith('file:')) {
+      // Remove the 'file:'
+      let descPath = description.substring(5);
+      // Make it relative to project/src
+      descPath = path.resolve(__dirname, descPath);
+
+      let contents = fs.readFileSync(descPath, 'utf8');
+      this.description = contents;
+    } else {
+      this.description = description;
+    }
   }
 
   addItem (item) {

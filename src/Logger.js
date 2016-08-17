@@ -19,7 +19,8 @@ class Logger {
   }
 
   log (message) {
-    let re = new RegExp('{(\\w+?):(\\w+?)}', 'g');
+    // let re = new RegExp('{(\\w+?):(\\w+?)}', 'g');
+    let re = new RegExp('{(\\w+?):([^}]+?)}', 'g');
 
     let i = 0;
     while (true) {
