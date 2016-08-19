@@ -4,6 +4,7 @@ const Player = require('./Player');
 const Item = require('./Item');
 const Enemy = require('./Enemy');
 const EntityManager = require('./EntityManager');
+const clear = require('clear');
 
 class Game {
   constructor () {
@@ -152,7 +153,9 @@ class Game {
     ];
 
     // Current room description
-    console.log('\n\n');
+    // clear()
+    console.log('\n\n ');
+    clear();
     this.player.currentRoom.printDescription();
 
     console.log('');

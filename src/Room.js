@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');
-//const Enemy = require('./Enemy');
+// const Enemy = require('./Enemy');
 
 
 /** Class giving the base properties of a room. */
@@ -65,6 +64,8 @@ class Room {
   }
 
   printDescription () {
+    // process.stdout.write('\u001B[2J\u001B[0;0f');
+
     // Print this rooom information
     Logger.log(this.name);
     Logger.log('\t' + this.description);
