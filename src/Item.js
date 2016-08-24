@@ -13,11 +13,12 @@ class Item {
   constructor (name, description, damage, weight, uses) {
     this.name = name;
     this.description = description;
-    this.damage = damage;
-    this.weight = weight;
-    this.uses = uses;
+    this.damage = damage || 0;
+    this.weight = weight || 1;
+    this.uses = uses || 1;
 
     this.inventory = null;
+    this.parentInventory = null;
   }
 
   addInventory () {
