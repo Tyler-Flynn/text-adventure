@@ -1,9 +1,14 @@
+'use strict';
 const chalk = require('chalk');
 const wordwrap = require('wordwrap');
 
 class Logger {
   constructor () {
-    this.wrap = wordwrap(process.stdout.columns);
+    if (process.stdout) {
+      this.wrap = wordwrap(process.stdout.columns);
+    } else {
+      this.wrap = function (s) { return s; };
+    }
 
     this.colorMap = {
       ITEM: function (s) {

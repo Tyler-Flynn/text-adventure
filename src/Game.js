@@ -1,10 +1,13 @@
-const inquirer = require('inquirer'); // TODO IMPLEMENT AUTOCLEAR
+'use strict';
+const clear = require('clear');
+const inquirer = require('inquirer');
+
 const Room = require('./Room');
 const Player = require('./Player');
 const Item = require('./Item');
 const Enemy = require('./Enemy');
 const EntityManager = require('./EntityManager');
-const clear = require('clear');
+
 
 class Game {
   constructor () {
@@ -147,9 +150,7 @@ class Game {
         value: {
           action: 'QUIT'
         }
-
       }
-
     ];
 
     // Current room description

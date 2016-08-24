@@ -1,3 +1,4 @@
+'use strict';
 const inquirer = require('inquirer');
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');

@@ -1,3 +1,4 @@
+'use strict';
 const Inventory = require('./Inventory');
 
 /** class containing the properties of the Player */

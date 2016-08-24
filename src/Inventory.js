@@ -1,4 +1,6 @@
+'use strict';
 const inquirer = require('inquirer');
+
 
 class Inventory {
   constructor () {

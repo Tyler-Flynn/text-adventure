@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Text Adventure</title>
+    <style type="text/css">
+      html, body {
+        width: 100%;
+        height: 100%;
+        background-color: #111;
+        margin: 0;
+        padding: 0;
+      }
+      #output {
+        width: 100%;
+        height: 100%;
+        padding: 1em;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        color: #eee;
+        font-family: "Courier New", Courier, monospace;
+      }
+      .text-line {
+        font-size: 18px;
+        min-height: 1em;
+      }
+      .text-tab {
+        display: inline-block;
+        width: 1em;
+      }
+      .input-container {
+        font-size: 20px;
+        line-height: 1.25em;
+      }
+      .input-container a {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="output"></div>
+
+    <script src="./dist/browserBootstrap.js" charset="utf-8"></script>
+    <script> window.textAdventureBootstrap(); </script>
+    <script src="./dist/textAdventure.js" charset="utf-8"></script>
+  </body>
+</html>

@@ -1,8 +1,8 @@
+'use strict';
 const fs = require('fs');
 const path = require('path');
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');
-// const Enemy = require('./Enemy');
 
 
 /** Class giving the base properties of a room. */
@@ -18,8 +18,6 @@ class Room {
     this.connectedRooms = {};
 
     this.setDescription(description);
-
-    // this.enemy = new Enemy(description);
   }
 
   setDescription (description) {
@@ -72,7 +70,7 @@ class Room {
     // Print Entities in Room
     let entities = this.game.entityManager.entitiesInRoom(this)
     if (entities.length === 0) {
-      Logger.log('You\'re alone in the room.')
+      Logger.log('You are alone in the room.')
     } else {
       Logger.log('You are not alone in the room...')
       for (let i = 0; i < entities.length; i++) {
