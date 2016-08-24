@@ -1,3 +1,4 @@
+'use strict';
 const Entity = require('./Entity');
 
 class EntityManager {

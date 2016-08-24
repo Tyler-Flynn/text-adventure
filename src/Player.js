@@ -1,3 +1,4 @@
+'use strict';
 // const Inventory = require('./Inventory');
 const Logger = require('./Logger');
 const Entity = require('./Entity');
