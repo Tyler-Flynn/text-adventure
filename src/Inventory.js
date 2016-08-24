@@ -31,7 +31,7 @@ class Inventory {
     return this.items.indexOf(item) >= 0;
   }
 
-  doExamine (player) {
+  selectItem (message) {
     // Build list of choices
     var choices = [];
     // Iterate through all available items in this rooms inventory
@@ -45,17 +45,23 @@ class Inventory {
 
     if (choices.length < 1) {
       console.log('You have nothing in your inventory.')
-      return Promise.resolve();
+      return Promise.resolve(null);
     }
 
     // Return the new promise
     return inquirer.prompt([{
       type: 'list',
       name: 'userChoice',
-      message: 'Examine what?',
+      message: message,
       choices: choices
     }]).then((answers) => {
-      return answers.userChoice.doExamine(player);
+      return answers.userChoice;
+    });
+  }
+
+  doExamine (player) {
+    return this.selectItem('Examine what?').then(item => {
+      return item.doExamine(player);
     });
   }
 }

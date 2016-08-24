@@ -54,27 +54,28 @@ class Game {
     this.hallway.connect('WEST', this.hallwayDoorLeft);
     this.hallway.connect('SOUTH', this.foyer);
     // Foyer Inventory
-    var cupboard = new Item('CUPBOARD', 'A cobweb coated oak cupboard. Maybe there is something inside?', 3, 20, 1);
-    cupboard.addInventory()
-    cupboard.inventory.addItem(new Item('DAGGER', 'An old dagger, good for stabbing things.', 5, 3, 25));
-    this.foyer.addItem(new Item('COATRACK', 'A dusty old coat rack mdade of wood and brass. Has some heft to it.', 5, 25, 5));
-    this.foyer.addItem(cupboard)
+    var cupboard = new Item('Cupboard', 'A cobweb coated oak cupboard. Maybe there is something inside?', 9, 20, 10);
+    cupboard.accuracy = 0.3;
+    cupboard.addInventory();
+    cupboard.inventory.addItem(new Item('Dagger', 'An old dagger, good for stabbing things.', 5, 3, 25));
+    this.foyer.addItem(new Item('Coatrack', 'A dusty old coat rack mdade of wood and brass. Has some heft to it.', 5, 25, 5));
+    this.foyer.addItem(cupboard);
   // Living room inventory
-    var chest = new Item('CHEST', 'A faded old chest with a leather closing strap.', 5, 15, 7)
-    chest.addInventory()
-    chest.inventory.addItem(new Item('MATCHES', 'An old box of matches.', 1, 1, 1))
-    this.livingRoom.addItem(new Item('PAINTING', 'An immaculate portrait of the prior owner of the manor. The painting has eyes that just seem to follow you, creepy..', 2, 10, 1));
+    var chest = new Item('Chest', 'A faded old chest with a leather closing strap.', 5, 15, 7);
+    chest.addInventory();
+    chest.inventory.addItem(new Item('Matches', 'An old box of matches.', 1, 1, 1));
+    this.livingRoom.addItem(new Item('Painting', 'An immaculate portrait of the prior owner of the manor. The painting has eyes that just seem to follow you, creepy..', 2, 10, 1));
     // Basement inventory
-    this.basement.addItem(new Item('LANTERN', 'An ancient brass lantern', 3, 5, 1));
+    this.basement.addItem(new Item('Lantern', 'An ancient brass lantern', 3, 5, 1));
     // Cell 3 Inventory
-    this.cell3.addItem(new Item('SILVER KEY', 'A key once polished silver, now it is just old and tarnished.', 1, 1, 1));
+    this.cell3.addItem(new Item('Silver Key', 'A key once polished silver, now it is just old and tarnished.', 1, 1, 1));
     // Alatar Chamber inventory
-    this.altarChamber.addItem(new Item('GOLDEN KEY', 'A key forged of the purest gold. It was dropped by the demon. I wonder what it goes to?', 1, 1, 1));
+    this.altarChamber.addItem(new Item('Golden Key', 'A key forged of the purest gold. It was dropped by the demon. I wonder what it goes to?', 1, 1, 1));
     // Hallway door right Inventory
-    this.hallwayDoorRight.addItem(new Item('NOTE', 'A cryptic note about the ongoigns of this manor.', 0, 0, 1));
+    this.hallwayDoorRight.addItem(new Item('Note', 'A cryptic note about the ongoigns of this manor.', 0, 0, 1));
     // Study Inventory
-    this.upstairs.addItem(new Item('SWORD', 'A victorian era sword with a hilt dawning incrested rubies, the edge still looks as sharp as the day it was first forged.', 15, 5, 25));
-    this.upstairs.addItem(new Item('LETTER', 'A letter written so long ago you  cannnot even make out the adressed year from how faded the ink is on the page. Though it gives you a good idea as to just how long ago it has been since someone lived here or even explored.', 0, 0, 1));
+    this.upstairs.addItem(new Item('Sword', 'A victorian era sword with a hilt dawning incrested rubies, the edge still looks as sharp as the day it was first forged.', 15, 5, 25));
+    this.upstairs.addItem(new Item('Letter', 'A letter written so long ago you  cannnot even make out the adressed year from how faded the ink is on the page. Though it gives you a good idea as to just how long ago it has been since someone lived here or even explored.', 0, 0, 1));
   }
 
   setupEnemy () {
@@ -94,7 +95,7 @@ class Game {
 
 
   setupPlayer () {
-    this.player = new Player(this.startingRoom);
+    this.player = new Player('player', this.startingRoom);
   }
 
   start () {
@@ -102,56 +103,23 @@ class Game {
   }
 
   gameLoop () {
-    var choices = [
-      {
-        name: 'Examine',
-        value: {
-          action: 'EXAMINE'
-        }
-      },
+    var choices = [];
+    this.player.currentRoom.addChoices(choices);
 
-
-      {
-        name: 'Go North',
-        value: {
-          action: 'MOVE',
-          direction: 'NORTH'
-        }
-      },
-      {
-        name: 'Go East',
-        value: {
-          action: 'MOVE',
-          direction: 'EAST'
-        }
-      },
-      {
-        name: 'Go South',
-        value: {
-          action: 'MOVE',
-          direction: 'SOUTH'
-        }
-      },
-      {
-        name: 'Go West',
-        value: {
-          action: 'MOVE',
-          direction: 'WEST'
-        }
-      },
-      {
-        name: 'Check Inventory',
-        value: {
-          action: 'CHECK INVENTORY'
-        }
-      },
-      {
-        name: 'Quit Game',
-        value: {
-          action: 'QUIT'
-        }
+    // Interact with inventory
+    choices.push({
+      name: 'Check Inventory',
+      value: {
+        action: 'CHECK INVENTORY'
       }
-    ];
+    })
+    // Exit
+    choices.push({
+      name: 'Quit Game',
+      value: {
+        action: 'QUIT'
+      }
+    });
 
     // Current room description
     // clear()
@@ -181,7 +149,11 @@ class Game {
         return this.player.inventory.doExamine(this.player).then(() => {
           return 500;
         });
-      } if (answers.userChoice.action === 'QUIT') {
+      } else if (answers.userChoice.action === 'FIGHT') {
+        return this.player.currentRoom.doFight(this.player).then(() => {
+          return 1000;
+        });
+      } else if (answers.userChoice.action === 'QUIT') {
         process.exit();
       } else {
         console.log('unhandled action', answers.userChoice.action);

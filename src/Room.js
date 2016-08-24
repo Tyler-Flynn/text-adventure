@@ -1,6 +1,9 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+
+const inquirer = require('inquirer');
+
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');
 
@@ -37,9 +40,9 @@ class Room {
   addItem (item) {
     this.inventory.addItem(item);
   }
-  addEnemy (enemy) {
-    this.currentRoom.addEnemy(enemy);
-  }
+  // addEnemy (enemy) {
+  //   this.currentRoom.addEnemy(enemy);
+  // }
 
   connect (keyword, otherRoom) {
     // Connect this room -> other room
@@ -59,6 +62,55 @@ class Room {
     }
     // Connect other room -> this room
     otherRoom.connectedRooms[oppositeKeyword] = this;
+  }
+
+  addChoices (choices) {
+    // Interact with room
+    choices.push({
+      name: 'Examine',
+      value: {
+        action: 'EXAMINE'
+      }
+    });
+    // Movement
+    choices.push({
+      name: 'Go North',
+      value: {
+        action: 'MOVE',
+        direction: 'NORTH'
+      }
+    });
+    choices.push({
+      name: 'Go East',
+      value: {
+        action: 'MOVE',
+        direction: 'EAST'
+      }
+    });
+    choices.push({
+      name: 'Go South',
+      value: {
+        action: 'MOVE',
+        direction: 'SOUTH'
+      }
+    });
+    choices.push({
+      name: 'Go West',
+      value: {
+        action: 'MOVE',
+        direction: 'WEST'
+      }
+    });
+
+    const entitiesInSelf = this.game.entityManager.entitiesInRoom(this);
+    if (entitiesInSelf.length > 0) {
+      choices.push({
+        name: 'Fight',
+        value: {
+          action: 'FIGHT'
+        }
+      });
+    }
   }
 
   printDescription () {
@@ -86,6 +138,26 @@ class Room {
 
   doExamine (player) {
     return this.inventory.doExamine(player);
+  }
+
+  doFight (player) {
+    const entitiesInSelf = this.game.entityManager.entitiesInRoom(this);
+    const choices = [];
+    entitiesInSelf.forEach(entity => {
+      choices.push({
+        name: entity.name,
+        value: entity
+      });
+    });
+
+    return inquirer.prompt([{
+      type: 'list',
+      name: 'userChoice',
+      message: 'Fight what?',
+      choices: choices
+    }]).then((answers) => {
+      return answers.userChoice.doFight(player);
+    });
   }
 }
 

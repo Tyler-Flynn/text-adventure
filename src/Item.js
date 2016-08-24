@@ -18,6 +18,8 @@ class Item {
     this.weight = weight || 1;
     this.uses = uses || 1;
 
+    this.accuracy = 0.8;
+
     this.inventory = null;
     this.parentInventory = null;
   }
@@ -33,6 +35,24 @@ class Item {
     if (this.parentInventory) {
       this.parentInventory.removeItem(this);
     }
+  }
+
+  consumeUse (showLogs) {
+    this.uses--;
+    if (this.uses === 0) {
+      this.removeFromParentInventory();
+      if (showLogs) {
+        Logger.log('The ' + this.name + ' runs out of uses, crumbling into a pile of rubble.');
+      }
+    }
+  }
+
+  getDamage () {
+    return this.damage;
+  }
+
+  getAccuracy () {
+    return this.accuracy;
   }
 
   printDescription () {
