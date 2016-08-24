@@ -3,8 +3,17 @@ const inquirer = require('inquirer');
 
 
 class Inventory {
-  constructor () {
+  constructor (parent) {
+    this.parent = parent;
+
     this.items = [];
+  }
+
+  getCurrentRoom () {
+    if (!this.parent) {
+      return null;
+    }
+    return this.parent.getCurrentRoom();
   }
 
   /**

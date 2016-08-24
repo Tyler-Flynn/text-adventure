@@ -1,10 +1,13 @@
 'use strict';
+const EventEmitter = require('events');
+
 const inquirer = require('inquirer');
+
 const Logger = require('./Logger');
 const Inventory = require('./Inventory');
 
 /** Class representing the base properties of items found in the game*/
-class Item {
+class Item extends EventEmitter {
 	/**
 	* Create an item
 	* @param {string} name - An object that the user can interact with within the game
@@ -12,6 +15,7 @@ class Item {
   * @param {number} damage - How much damage this item can do to a character
 	*/
   constructor (name, description, damage, weight, uses) {
+    super();
     this.name = name;
     this.description = description;
     this.damage = damage || 0;
@@ -28,7 +32,7 @@ class Item {
     if (this.inventory) {
       throw new Error('This item already has an inventory')
     }
-    this.inventory = new Inventory();
+    this.inventory = new Inventory(this);
   }
 
   removeFromParentInventory () {
@@ -37,8 +41,16 @@ class Item {
     }
   }
 
+  getCurrentRoom () {
+    if (!this.parentInventory) {
+      return null;
+    }
+    return this.parentInventory.getCurrentRoom();
+  }
+
   consumeUse (showLogs) {
     this.uses--;
+    this.emit('consumeUse', this.uses);
     if (this.uses === 0) {
       this.removeFromParentInventory();
       if (showLogs) {

@@ -17,10 +17,14 @@ class Room {
   constructor (game, name, description) {
     this.game = game;
     this.name = name;
-    this.inventory = new Inventory();
+    this.inventory = new Inventory(this);
     this.connectedRooms = {};
 
     this.setDescription(description);
+  }
+
+  getCurrentRoom () {
+    return this;
   }
 
   setDescription (description) {

@@ -58,6 +58,17 @@ class Game {
     cupboard.accuracy = 0.3;
     cupboard.addInventory();
     cupboard.inventory.addItem(new Item('Dagger', 'An old dagger, good for stabbing things.', 5, 3, 25));
+    cupboard.on('consumeUse', remainingUses => {
+      if (Math.random() < 0.5) {
+        return;
+      }
+
+      console.log('A drawer is ejected from the cupboard!');
+      const drawer = new Item('Drawer', 'A scuffed drawer, not much use without a cupboard.', 2, 5, 3);
+      const room = cupboard.getCurrentRoom();
+      room.addItem(drawer);
+    });
+
     this.foyer.addItem(new Item('Coatrack', 'A dusty old coat rack made of wood and brass. Has some heft to it.', 5, 15, 5));
     this.foyer.addItem(cupboard);
   // Living room inventory

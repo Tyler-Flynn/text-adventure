@@ -8,11 +8,15 @@ class Entity {
   constructor (name, currentRoom) {
     this.name = name;
     this.setHealth(100);
-    this.inventory = new Inventory();
+    this.inventory = new Inventory(this);
 
     this.currentRoom = currentRoom;
 
     this.strength = 1;
+  }
+
+  getCurrentRoom () {
+    return this.currentRoom;
   }
 
   setHealth (health) {
