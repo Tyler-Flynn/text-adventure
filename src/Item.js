@@ -27,28 +27,44 @@ class Item {
     this.inventory = new Inventory();
   }
 
+  removeFromParentInventory () {
+    if (this.parentInventory) {
+      this.parentInventory.removeItem(this);
+    }
+  }
+
   printDescription () {
     Logger.log('Item: {ITEM:' + this.name + '}');
     Logger.log('\t' + this.description);
     Logger.log('\tWeight: ' + this.weight + '\tDamage: ' + this.damage + '\tUses: ' + this.uses);
   }
 
-  doExamine () {
+  doExamine (player) {
     // Build list of choices
-    var choices = [
-      {
+    const choices = [];
+
+    if (player.inventory.hasItem(this)) {
+      choices.push({
+        name: 'Drop',
+        value: {
+          action: 'DROP'
+        }
+      });
+    } else {
+      choices.push({
         name: 'Take',
         value: {
           action: 'TAKE'
         }
-      },
-      {
-        name: 'Leave',
-        value: {
-          action: 'LEAVE'
-        }
+      });
+    }
+
+    choices.push({
+      name: 'Nothing',
+      value: {
+        action: 'LEAVE'
       }
-    ];
+    });
 
     // Display item stats
     this.printDescription();
@@ -64,7 +80,12 @@ class Item {
       console.log('');
       // Run the game logic
       if (answers.userChoice.action === 'TAKE') {
-        //
+        // Move item from current inventory to player inventory
+        this.removeFromParentInventory();
+        player.inventory.addItem(this);
+      } else if (answers.userChoice.action === 'DROP') {
+        this.removeFromParentInventory();
+        player.currentRoom.inventory.addItem(this);
       } else if (answers.userChoice.action === 'LEAVE') {
         return;
       } else {

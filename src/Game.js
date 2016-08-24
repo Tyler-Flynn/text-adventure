@@ -156,7 +156,7 @@ class Game {
     // clear()
     console.log('\n\n ');
     clear();
-    this.player.currentRoom.printDescription();
+    this.player.currentRoom.printDescription(this.player);
 
     console.log('');
     inquirer.prompt([{
@@ -173,11 +173,11 @@ class Game {
         this.player.move(answers.userChoice.direction);
         return 750;
       } else if (answers.userChoice.action === 'EXAMINE') {
-        return this.player.currentRoom.doExamine().then(() => {
+        return this.player.currentRoom.doExamine(this.player).then(() => {
           return 500;
         });
       } else if (answers.userChoice.action === 'CHECK INVENTORY') {
-        return this.player.inventory.doExamine().then(() => {
+        return this.player.inventory.doExamine(this.player).then(() => {
           return 500;
         });
       } if (answers.userChoice.action === 'QUIT') {

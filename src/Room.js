@@ -86,8 +86,8 @@ class Room {
     Logger.log('You can go: ' + Object.keys(this.connectedRooms));
   }
 
-  doExamine () {
-    return this.inventory.doExamine();
+  doExamine (player) {
+    return this.inventory.doExamine(player);
   }
 }
 
