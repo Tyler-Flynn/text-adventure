@@ -185,6 +185,9 @@ class Game {
       } else {
         console.log('unhandled action', answers.userChoice.action);
       }
+    }).catch(err => {
+      console.error(err);
+      process.exit(1);
     }).then((waitTime) => {
       // Do another game step
       setTimeout(() => {
