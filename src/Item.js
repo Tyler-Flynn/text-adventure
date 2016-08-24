@@ -81,6 +81,15 @@ class Item {
       });
     }
 
+    if (this.inventory && this.inventory.items.length > 0) {
+      choices.push({
+        name: 'Look inside',
+        value: {
+          action: 'LOOK_INSIDE'
+        }
+      });
+    }
+
     choices.push({
       name: 'Nothing',
       value: {
@@ -108,6 +117,8 @@ class Item {
       } else if (answers.userChoice.action === 'DROP') {
         this.removeFromParentInventory();
         player.currentRoom.inventory.addItem(this);
+      } else if (answers.userChoice.action === 'LOOK_INSIDE') {
+        return this.inventory.doExamine(player);
       } else if (answers.userChoice.action === 'LEAVE') {
         return;
       } else {

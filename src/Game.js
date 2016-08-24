@@ -54,11 +54,11 @@ class Game {
     this.hallway.connect('WEST', this.hallwayDoorLeft);
     this.hallway.connect('SOUTH', this.foyer);
     // Foyer Inventory
-    var cupboard = new Item('Cupboard', 'A cobweb coated oak cupboard. Maybe there is something inside?', 9, 20, 10);
+    var cupboard = new Item('Cupboard', 'A cobweb coated oak cupboard. Maybe there is something inside?', 9, 25, 6);
     cupboard.accuracy = 0.3;
     cupboard.addInventory();
     cupboard.inventory.addItem(new Item('Dagger', 'An old dagger, good for stabbing things.', 5, 3, 25));
-    this.foyer.addItem(new Item('Coatrack', 'A dusty old coat rack mdade of wood and brass. Has some heft to it.', 5, 25, 5));
+    this.foyer.addItem(new Item('Coatrack', 'A dusty old coat rack made of wood and brass. Has some heft to it.', 5, 15, 5));
     this.foyer.addItem(cupboard);
   // Living room inventory
     var chest = new Item('Chest', 'A faded old chest with a leather closing strap.', 5, 15, 7);
