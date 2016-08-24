@@ -1,7 +1,8 @@
 {
   "scripts": {
     "watch": "webpack --debug --devtool eval --output-pathinfo --progress --colors --watch",
-    "build": "webpack --optimize-minimize --optimize-dedupe"
+    "build": "webpack --optimize-minimize --optimize-dedupe",
+    "serve": "python -m SimpleHTTPServer"
   },
   "dependencies": {
     "bluebird": "^3.4.1",

@@ -14,7 +14,7 @@ const bootstrap = function () {
   const originalLog = console.log;
   console.log = (...args) => {
     // Log to console
-    originalLog(...args)
+    originalLog.apply(window.console, args);
     // Print in to the output window
     const $output = $('#output');
     let message = args.join(' ');
