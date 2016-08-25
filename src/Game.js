@@ -8,6 +8,8 @@ const Item = require('./Item');
 const Enemy = require('./Enemy');
 const EntityManager = require('./EntityManager');
 
+const Drawer = require('./items/Drawer');
+
 
 class Game {
   constructor () {
@@ -64,7 +66,7 @@ class Game {
       }
 
       console.log('A drawer is ejected from the cupboard!');
-      const drawer = new Item('Drawer', 'A scuffed drawer, not much use without a cupboard.', 2, 5, 3);
+      const drawer = new Drawer();
       const room = cupboard.getCurrentRoom();
       room.addItem(drawer);
     });
